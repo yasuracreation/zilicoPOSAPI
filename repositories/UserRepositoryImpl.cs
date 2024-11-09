@@ -1,15 +1,15 @@
-using zilicoPOSAPI.dataaccess;
-using zilicoPOSAPI.dtos.user;
-using zilicoPOSAPI.interfaces;
-using zilicoPOSAPI.models;
+using zilicoPOSAPI.DataAccess;
+using zilicoPOSAPI.dtos.User;
+using zilicoPOSAPI.Interfaces;
+using zilicoPOSAPI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using System.Linq;
-using zilicoPOSAPI.mappers;
+using zilicoPOSAPI.Mappers;
 using Microsoft.EntityFrameworkCore;
 
-namespace zilicoPOSAPI.repositories
+namespace zilicoPOSAPI.Repositories
 {
     public class UserRepositoryImpl : IUserRepository
     {

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace zilicoPOSAPI.models
+namespace zilicoPOSAPI.Models
 {
     [Table("UsersProfile")]
     public class UserProfile

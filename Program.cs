@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using zilicoPOSAPI.dataaccess;
-using zilicoPOSAPI.interfaces;
-using zilicoPOSAPI.repositories;
+using zilicoPOSAPI.DataAccess;
+using zilicoPOSAPI.Interfaces;
+using zilicoPOSAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

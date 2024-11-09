@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace zilicoPOSAPI.dtos.user
+namespace zilicoPOSAPI.dtos.User
 {
     public class CreateUserRequest
     {

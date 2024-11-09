@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace zilicoPOSAPI.dtos.user
+namespace zilicoPOSAPI.dtos.User
 {
     public class UserResponse
     {

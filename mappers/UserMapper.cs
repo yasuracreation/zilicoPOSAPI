@@ -1,7 +1,7 @@
-using zilicoPOSAPI.dtos.user;
-using zilicoPOSAPI.models;
+using zilicoPOSAPI.dtos.User;
+using zilicoPOSAPI.Models;
 
-namespace zilicoPOSAPI.mappers
+namespace zilicoPOSAPI.Mappers
 {
     public static class UserMapper
     {

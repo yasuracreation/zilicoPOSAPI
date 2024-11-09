@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using zilicoPOSAPI.models;
+using zilicoPOSAPI.Models;
 
-namespace zilicoPOSAPI.dataaccess
+namespace zilicoPOSAPI.DataAccess
 {
     public class ApplicationDbContext : DbContext
     {

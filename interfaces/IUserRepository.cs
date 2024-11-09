@@ -1,9 +1,9 @@
-using zilicoPOSAPI.dtos.user;
-using zilicoPOSAPI.models;
+using zilicoPOSAPI.dtos.User;
+using zilicoPOSAPI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace zilicoPOSAPI.interfaces
+namespace zilicoPOSAPI.Interfaces
 {
     public interface IUserRepository
     {

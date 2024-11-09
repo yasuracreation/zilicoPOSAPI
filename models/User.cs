@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 
-namespace zilicoPOSAPI.models
+namespace zilicoPOSAPI.Models
 {
     [Table("User")]
     public class User

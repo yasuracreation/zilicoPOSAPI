@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace zilicoPOSAPI.models
+namespace zilicoPOSAPI.Models
 {
     [Table("UserGroup")]
     public class UserGroup

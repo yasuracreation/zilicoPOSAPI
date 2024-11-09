@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace zilicoPOSAPI.models
+namespace zilicoPOSAPI.Models
 {
     [Table("Login")]
     public class Login
