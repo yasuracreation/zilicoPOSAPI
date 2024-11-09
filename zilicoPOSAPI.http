@@ -1,0 +1,6 @@
+@zilicoPOSAPI_HostAddress = http://localhost:5101
+
+GET {{zilicoPOSAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

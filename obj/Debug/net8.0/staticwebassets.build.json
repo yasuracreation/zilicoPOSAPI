@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "JjcqahQO6D2M/DiXXwxqVLPFMD3T1d/8jSXrdwJMSzA=",
+  "Source": "zilicoPOSAPI",
+  "BasePath": "_content/zilicoPOSAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
