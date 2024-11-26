@@ -1,5 +1,5 @@
 using zilicoPOSAPI.dtos.User;
-using zilicoPOSAPI.Models;
+using zilicoPOSAPI.Models.Users;
 
 namespace zilicoPOSAPI.Mappers
 {

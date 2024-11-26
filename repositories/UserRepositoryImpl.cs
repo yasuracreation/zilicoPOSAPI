@@ -1,7 +1,7 @@
 using zilicoPOSAPI.DataAccess;
 using zilicoPOSAPI.dtos.User;
 using zilicoPOSAPI.Interfaces;
-using zilicoPOSAPI.Models;
+using zilicoPOSAPI.Models.Users;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;

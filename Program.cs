@@ -1,3 +1,11 @@
+global using zilicoPOSAPI.Models;
+global using zilicoPOSAPI.Models.Approval;
+global using zilicoPOSAPI.Models.Users;
+global using zilicoPOSAPI.Models.OrderManagement;
+global using zilicoPOSAPI.Models.Products;
+global using zilicoPOSAPI.Models.Inventories;
+global using zilicoPOSAPI.Models.Audit;
+global using zilicoPOSAPI.Models.TransactionRecords;
 using Microsoft.EntityFrameworkCore;
 using zilicoPOSAPI.DataAccess;
 using zilicoPOSAPI.Interfaces;

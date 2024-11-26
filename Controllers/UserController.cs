@@ -1,10 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using zilicoPOSAPI.dtos.User;
 using zilicoPOSAPI.Interfaces;
-using zilicoPOSAPI.Models;
 using zilicoPOSAPI.Mappers;
-using System.Threading.Tasks;
 
 namespace zilicoPOSAPI.Controllers
 {
