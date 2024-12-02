@@ -7,11 +7,12 @@ namespace zilicoPOSAPI.dtos.User
 {
     public class UserResponse
     {
-        public int Id { get; internal set; }
-        public string Name { set; get; } = String.Empty;
-        public string Email { set; get; } = String.Empty;
-        public string Password { set; get; } = String.Empty;
-        public string Role { set; get; } = String.Empty;
-        public int UserType {set ; get;}  
+        public string Id { get; set; }
+        public string Name { get; set; } // You might want to combine FirstName and LastName
+        public string Email { get; set; }
+        public string UserType { get; set; } // Assuming this exists in your User entity
+        public string Phone { get; set; } // Optional: include if needed in response
+        public DateTime CreatedAt { get; set; } // Optional: include if needed in response
+        public DateTime UpdatedAt { get; set; } // Optional: include if needed in response
     }
 }

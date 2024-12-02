@@ -1,13 +1,13 @@
-using zilicoPOSAPI.DataAccess;
 using zilicoPOSAPI.dtos.User;
 using zilicoPOSAPI.Interfaces;
-using zilicoPOSAPI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using zilicoPOSAPI.Mappers;
 using Microsoft.EntityFrameworkCore;
+using zilicoPOSAPI.Context;
+using zilicoPOSAPI.Entities;
 
 namespace zilicoPOSAPI.Repositories
 {
@@ -21,209 +21,103 @@ namespace zilicoPOSAPI.Repositories
             _context = applicationDbContext;
             _logger = logger;
         }
-
-        public async Task<List<User>> GetUsersAsync()
-        {
-            try
-            {
-                _logger.LogInformation("Retrieving all users from the database.");
-                return await _context.Users
-                    .Include(u => u.UserGroup)
-                    .Include(u => u.RoleGroup)
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while retrieving users.");
-                throw;
-            }
-        }
-
-        public async Task<User?> GetUserAsync(int id)
-        {
-            try
-            {
-                _logger.LogInformation("Retrieving user with ID {UserId}.", id);
-                var user = await _context.Users
-                    .Include(u => u.UserGroup)
-                    .Include(u => u.RoleGroup)
-                    .FirstOrDefaultAsync(u => u.Id == id);
-
-                if (user == null)
-                {
-                    _logger.LogWarning("User with ID {UserId} was not found.", id);
-                }
-                return user;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while retrieving user with ID {UserId}.", id);
-                throw;
-            }
-        }
-
-        public async Task<User?> GetUserAsync(string username)
-        {
-            try
-            {
-                _logger.LogInformation("Retrieving user with username {Username}.", username);
-                var user = await _context.Users
-                    .Include(u => u.UserGroup)
-                    .Include(u => u.RoleGroup)
-                    .FirstOrDefaultAsync(u => u.Name == username);
-
-                if (user == null)
-                {
-                    _logger.LogWarning("User with username {Username} was not found.", username);
-                }
-                return user;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while retrieving user with username {Username}.", username);
-                throw;
-            }
-        }
-
         public async Task<User?> createUser(CreateUserRequest createUserRequest)
         {
-            try
-            {
-                _logger.LogInformation("Creating a new user with email {Email}.", createUserRequest.Email);
+            var user = UserMapper.MapCreateUserRequestToUser(createUserRequest);
 
-                var user = UserMapper.MapCreateUserRequestToUser(createUserRequest);
-
-                if (createUserRequest.RoleGroupId.HasValue)
-                {
-                    var roleGroup = await _context.RoleGroups.FindAsync(createUserRequest.RoleGroupId.Value);
-                    if (roleGroup != null)
-                    {
-                        user.RoleGroup = roleGroup;
-                        _logger.LogInformation("Assigned RoleGroup with ID {RoleGroupId} to the new user.", createUserRequest.RoleGroupId.Value);
-                    }
-                    else
-                    {
-                        _logger.LogWarning("RoleGroup with ID {RoleGroupId} was not found.", createUserRequest.RoleGroupId.Value);
-                    }
-                }
-
-                if (createUserRequest.UserGroupId.HasValue)
-                {
-                    var userGroup = await _context.UserGroups.FindAsync(createUserRequest.UserGroupId.Value);
-                    if (userGroup != null)
-                    {
-                        user.UserGroup = userGroup;
-                        _logger.LogInformation("Assigned UserGroup with ID {UserGroupId} to the new user.", createUserRequest.UserGroupId.Value);
-                    }
-                    else
-                    {
-                        _logger.LogWarning("UserGroup with ID {UserGroupId} was not found.", createUserRequest.UserGroupId.Value);
-                    }
-                }
-
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
-                _logger.LogInformation("User with email {Email} successfully created.", createUserRequest.Email);
-
-                return user;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while creating a user with email {Email}.", createUserRequest.Email);
-                throw;
-            }
+           return await this.AddAsync(user);
         }
 
-        public async Task<User?> updateUser(int id, UpdateUserRequest updateUserRequest)
+        public async Task<User?> updateUser(int Id, UpdateUserRequest updateUserRequest)
         {
-            try
-            {
-                _logger.LogInformation("Updating user with ID {UserId}.", id);
-                var user = await _context.Users
-                    .Include(u => u.UserGroup)
-                    .Include(u => u.RoleGroup)
-                    .FirstOrDefaultAsync(u => u.Id == id);
-
-                if (user == null)
-                {
-                    _logger.LogWarning("User with ID {UserId} was not found.", id);
-                    return null;
-                }
-
-                // Update properties
-                user.Name = updateUserRequest.Name;
-                user.Email = updateUserRequest.Email;
-                user.Password = updateUserRequest.Password;
-                user.UserType = updateUserRequest.UserType;
-
-                // Update RoleGroup if provided
-                if (updateUserRequest.RoleGroupId.HasValue)
-                {
-                    var roleGroup = await _context.RoleGroups.FindAsync(updateUserRequest.RoleGroupId.Value);
-                    if (roleGroup != null)
-                    {
-                        user.RoleGroup = roleGroup;
-                        _logger.LogInformation("Updated RoleGroup with ID {RoleGroupId} for user ID {UserId}.", updateUserRequest.RoleGroupId.Value, id);
-                    }
-                    else
-                    {
-                        _logger.LogWarning("RoleGroup with ID {RoleGroupId} was not found.", updateUserRequest.RoleGroupId.Value);
-                    }
-                }
-
-                // Update UserGroup if provided
-                if (updateUserRequest.UserGroupId.HasValue)
-                {
-                    var userGroup = await _context.UserGroups.FindAsync(updateUserRequest.UserGroupId.Value);
-                    if (userGroup != null)
-                    {
-                        user.UserGroup = userGroup;
-                        _logger.LogInformation("Updated UserGroup with ID {UserGroupId} for user ID {UserId}.", updateUserRequest.UserGroupId.Value, id);
-                    }
-                    else
-                    {
-                        _logger.LogWarning("UserGroup with ID {UserGroupId} was not found.", updateUserRequest.UserGroupId.Value);
-                    }
-                }
-
-                // Save changes
-                _context.Users.Update(user);
-                await _context.SaveChangesAsync();
-                _logger.LogInformation("User with ID {UserId} successfully updated.", id);
-
-                return user;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while updating user with ID {UserId}.", id);
-                throw;
-            }
+            var user = await _context.Users.FindAsync(Id);
+            if (user == null) return null;
+            var updateUser = UserMapper.MapUpdateUserRequestToUser(updateUserRequest);
+            updateUser.FirstName = updateUserRequest.FirstName;
+            updateUser.LastName =updateUserRequest.LastName;
+            updateUser.Email = updateUserRequest.Email;
+            updateUser.Phone = updateUserRequest.Phone;
+            updateUser.UpdatedAt = DateTime.UtcNow;
+            return await this.UpdateAsync(updateUser);
         }
-
 
         public async Task<User?> deleteUser(int id)
         {
-            try
-            {
-                _logger.LogInformation("Deleting user with ID {UserId}.", id);
-                var user = await _context.Users.FindAsync(id);
-                if (user == null)
-                {
-                    _logger.LogWarning("User with ID {UserId} was not found.", id);
-                    return null;
-                }
+            var user = await _context.Users.FindAsync(id);
+            if (user == null) return null;
+            return await this.DeleteAsync(user);
+        }
 
-                _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
-                _logger.LogInformation("User with ID {UserId} successfully deleted.", id);
+        public async Task<bool> CheckUserExistsAsync(string email)
+        {
+            return await _context.Users.AnyAsync(u => u.Email == email);
+        }
 
-                return user;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred while deleting user with ID {UserId}.", id);
-                throw;
-            }
+        public async Task AddLoginAsync(Login login)
+        {
+            await _context.Logins.AddAsync(login);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateLoginAsync(Login login)
+        {
+            _context.Logins.Update(login);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<UserGroup> GetUserGroupByUserIdAsync(Guid userId)
+        {
+            var user = await _context.Users.Include(u => u.Group).FirstOrDefaultAsync(u => u.Id == userId);
+            return user.Group;
+        }
+
+        public async Task<ICollection<SysFunctionality>> GetUserPermissionsAsync(Guid userId)
+        {
+            var userGroup = await GetUserGroupByUserIdAsync(userId);
+            if (userGroup == null) return null;
+
+            return await _context.RoleGroupFunctionalities
+                .Include(rgf => rgf.Functionality)
+                .Where(rgf => rgf.RoleGroup.UserGroupId == userGroup.Id.ToString())
+                .Select(rgf => rgf.Functionality)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<User>> GetAllAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
+        public async Task<User> GetByIdAsync(Guid id)
+        {
+            return await _context.Users.FindAsync(id);
+        }
+        public async Task<User?> GetUserByNameAsync(string username)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.FirstName == username);
+        }
+        public async Task<User> AddAsync(User entity)
+        {
+          //  var user = UserMapper.MapCreateUserRequestToUser(createUserRequest);
+
+            await _context.Users.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+
+        public async Task<User> UpdateAsync(User entity)
+        {
+            _context.Users.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
+        }
+
+        public async Task<User> DeleteAsync(User entity)
+        {
+            
+            _context.Users.Remove(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }

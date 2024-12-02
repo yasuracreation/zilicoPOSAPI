@@ -141,3 +141,4 @@
 /Users/yasuradissanayake/Documents/dev/dotnetCore/zilicoPOSAPI/obj/Debug/net8.0/zilicoPOSAPI.pdb
 /Users/yasuradissanayake/Documents/dev/dotnetCore/zilicoPOSAPI/obj/Debug/net8.0/zilicoPOSAPI.genruntimeconfig.cache
 /Users/yasuradissanayake/Documents/dev/dotnetCore/zilicoPOSAPI/obj/Debug/net8.0/ref/zilicoPOSAPI.dll
+/Users/yasuradissanayake/Documents/dev/dotnetCore/zilicoPOSAPI/obj/Debug/net8.0/zilicoPOSAPI.sourcelink.json

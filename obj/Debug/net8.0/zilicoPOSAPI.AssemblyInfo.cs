@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("zilicoPOSAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0e0722a7b1c6720fdf391b99cd657448092c2bd0")]
 [assembly: System.Reflection.AssemblyProductAttribute("zilicoPOSAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("zilicoPOSAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

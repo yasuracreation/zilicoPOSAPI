@@ -4501,6 +4501,7 @@
       "packagesPath": "/Users/yasuradissanayake/.nuget/packages/",
       "outputPath": "/Users/yasuradissanayake/Documents/dev/dotnetCore/zilicoPOSAPI/obj/",
       "projectStyle": "PackageReference",
+      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
         "/Users/yasuradissanayake/.nuget/NuGet/NuGet.Config"
       ],
