@@ -4,24 +4,12 @@ namespace zilicoPOSAPI.dtos.User
 {
     public class CreateUserRequest
     {
-        [Required]
-        [MaxLength(100, ErrorMessage = "Name cannot be over 100 characters")]
-        public string Name { set; get; } = string.Empty;
-
-        [Required]
-        public string Email { set; get; } = string.Empty;
-
-        [Required]
-        public string Password { set; get; } = string.Empty;
-
-        [Required]
-        public string Role { set; get; } = string.Empty;
-
-        [Required]
-        public int UserType { set; get; }
-
-        // Optional relationship IDs
-        public int? RoleGroupId { get; set; }
-        public int? UserGroupId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        
+        public string Password { get; set; } // Consider hashing this before saving
+        public Guid GroupId { get; set; } // Assuming this is used for user grouping
     }
 }

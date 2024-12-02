@@ -1,15 +1,11 @@
-global using zilicoPOSAPI.Models;
-global using zilicoPOSAPI.Models.Approval;
-global using zilicoPOSAPI.Models.Users;
-global using zilicoPOSAPI.Models.OrderManagement;
-global using zilicoPOSAPI.Models.Products;
-global using zilicoPOSAPI.Models.Inventories;
-global using zilicoPOSAPI.Models.Audit;
-global using zilicoPOSAPI.Models.TransactionRecords;
+// global using zilicoPOSAPI.Entities;
+
 using Microsoft.EntityFrameworkCore;
-using zilicoPOSAPI.DataAccess;
+using zilicoPOSAPI.Context;
+// using zilicoPOSAPI.Context; 
 using zilicoPOSAPI.Interfaces;
 using zilicoPOSAPI.Repositories;
+using zilicoPOSAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +19,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>{
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<IUserRepository, UserRepositoryImpl>();
+
+builder.Services.AddSingleton<ITokenService, TokenService>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped<AuthService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
